@@ -1,0 +1,88 @@
+{% load static %}
+
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+
+    <a class="bg-white sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'core:index' %}">
+        <div class="sidebar-brand-icon text-primary">
+            <i class="fas fa-cloud"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3 text-gray-800">LocalStack <sup>Dashboard</sup></div>
+    </a>
+    <hr class="sidebar-divider my-0">
+
+    <!-- Dashboard -->
+
+    <li class="nav-item{% if 'dashboard' not in request.path %} active{% endif %}">
+        <a class="nav-link" href="{% url 'core:index' %}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider">
+
+    <!-- Account -->
+
+    <div class="sidebar-heading">
+        Storage
+    </div>
+    <li class="nav-item{% if '/profile' in request.path %} active{% endif %}">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-archive"></i>
+            <span>S3</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider">
+
+    <!-- Database -->
+
+    <div class="sidebar-heading">
+        Database
+    </div>
+    <li class="nav-item{% if 'business/update' in request.path %} active{% endif %}">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-database"></i>
+            <span>DynamoDB</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider">
+
+    <!-- Services -->
+
+    <!-- <div class="sidebar-heading">
+        SERVIÇOS
+    </div>
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-clock"></i>
+            <span>Agendamentos</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+            aria-controls="collapsePages">
+            <i class="fas fa-fw fa-question-circle"></i>
+            <span>Central de Suporte</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="#">Contate-nos</a>
+                <a class="collapse-item" href="#">Perguntas frequentes</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Relatórios</span></a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block"> -->
+
+    <!-- Sidebar Toggler (Sidebar) -->
+
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>

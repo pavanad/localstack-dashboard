@@ -1,0 +1,95 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+</div>
+
+<div class="row">
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Agendamentos</div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-500">Nenhum agendamento</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">O IP da Útilma Vez Logado
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">{{ip}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-network-wired fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Última Vez Logado</div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">{{user.last_login}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-day fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Modelo do dispositivo
+                        </div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">{{device_model}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-laptop fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-4 py-3 border-bottom-primary">
+            <div class="card-body">
+                <h5 class="text-primary">Economize seu tempo e não perca nenhum cliente</h5><br>
+                <p>Além de ter tudo que você precisa para agendar seus serviços favoritos. <br>Crie a agenda de seu
+                    negócio</p><br>
+                <a href="" class="d-none d-sm-inline-block btn btn-primary shadow-sm">Crie
+                    sua agenda agora</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
