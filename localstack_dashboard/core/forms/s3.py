@@ -2,11 +2,16 @@
 
 from botocore.exceptions import ClientError
 from django import forms
+from django.core.exceptions import ValidationError
+from localstack_dashboard.boto3_wrapper.s3 import (
+    bucket_exists,
+    bucket_is_valid,
+    s3_client,
+)
 from localstack_dashboard.boto3_wrapper.session import (
     get_available_regions,
     get_current_region_name,
 )
-from localstack_dashboard.boto3_wrapper.s3 import s3_client
 
 
 class BucketForm(forms.Form):
@@ -23,6 +28,14 @@ class BucketForm(forms.Form):
         widget=forms.Select(attrs={"class": "form-control"}),
         initial=get_current_region_name(),
     )
+
+    def clean_name(self):
+        data = self.cleaned_data["name"]
+        if not bucket_is_valid(data):
+            raise ValidationError("The specified bucket name is not valid")
+        if bucket_exists(data):
+            raise ValidationError("Bucket name already exists")
+        return data
 
     def create_bucket(self, name: str, region: str) -> bool:
         try:

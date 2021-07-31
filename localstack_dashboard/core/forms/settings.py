@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from configparser import ConfigParser
-
 from django import forms
 from localstack_dashboard.boto3_wrapper.session import (
     get_available_regions,
     get_current_region_name,
 )
-from localstack_dashboard.config.parser import (
-    set_configurations,
-    get_configurations,
-)
+from localstack_dashboard.config.parser import get_configurations, set_configurations
 
 
 class SettingsForm(forms.Form):

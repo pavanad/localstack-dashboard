@@ -25,7 +25,7 @@ def get_configurations_values():
     section_name = "default"
     if config.has_section("custom"):
         section_name = "custom"
-    
+
     data = {}
     for key in config[section_name]:
         data[key] = config.get(section_name, key)
