@@ -7,9 +7,12 @@ authors = ["Adilson Pavan <adilson.pavan@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 Django = "^3.2.5"
+boto3 = "^1.18.5"
+requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^21.6b0", allow-prereleases = true}
+flake8 = "^3.9.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
