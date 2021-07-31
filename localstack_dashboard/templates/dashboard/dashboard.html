@@ -6,7 +6,86 @@
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 </div>
 
+{% if localstack.status_message == 'unavailable' %}
 <div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-4 py-3 border-left-primary">
+            <div class="card-body">
+                <div class="error text-primary" style="font-size: 1.25rem; width: 100%;"
+                    data-text="Localstack is not available">
+                    Localstack is not available</div>
+                <p class="mt-4 mb-4">
+                    Try running a container: Get the docker-compose file <a
+                        href="https://github.com/localstack/localstack/blob/master/docker-compose.yml"
+                        target="_blank">here</a>, copy
+                    and paste this command into your
+                    terminal and then come back
+                </p>
 
+                <p>
+                    <code class="bg-gray-900 p-2 text-white">
+                        docker-compose -f {file-path} up -d --build
+                    </code>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if localstack.features %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-4 py-3 border-left-primary">
+            <div class="card-body">
+                <h5 class="text-primary">Features</h5>
+                <p>
+                    When a container is started for the first time, it will execute files with extensions .sh that are
+                    found in /docker-entrypoint-initaws.d or an alternate path defined in INIT_SCRIPTS_PATH. Files will
+                    be executed in alphabetical order. You can easily create aws resources on localstack using awslocal
+                    (or aws) cli tool in the initialization scripts.
+                </p>
+                <ul class="list-group list-group-flush">
+                    {% for feature, status in localstack.features.items %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col text-capitalize text-gray-800">
+                                {{feature}}
+                            </div>
+                            <div
+                                class="col-9 text-capitalize text-{% if status == 'disabled' %}danger{% else %}success{% endif %}">
+                                {{status}}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    {% for service, status in localstack.services.items %}
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">AWS {{service}}</div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-500">{{status}} service</div>
+                    </div>
+                    <div class="col-auto">
+                        <i
+                            class="fas 
+                            {% if status == 'running' %}fa-check-circle text-success{% else %}fa-minus-circle text-warning{% endif %}">
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

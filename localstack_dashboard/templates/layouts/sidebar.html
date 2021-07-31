@@ -14,21 +14,28 @@
 
     <!-- Dashboard -->
 
-    <li class="nav-item{% if 'dashboard' not in request.path %} active{% endif %}">
+    <li class="nav-item{% if request.path == '/' %} active{% endif %}">
         <a class="nav-link" href="{% url 'core:index' %}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
     </li>
+
+    <li class="nav-item{% if 'settings' in request.path %} active{% endif %}">
+        <a class="nav-link" href="{% url 'core:settings' %}">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Settings</span>
+        </a>
+    </li>
     <hr class="sidebar-divider">
 
-    <!-- Account -->
+    <!-- Storage -->
 
     <div class="sidebar-heading">
         Storage
     </div>
-    <li class="nav-item{% if '/profile' in request.path %} active{% endif %}">
-        <a class="nav-link" href="">
+    <li class="nav-item{% if '/s3' in request.path %} active{% endif %}">
+        <a class="nav-link" href="{% url 'core:s3' %}">
             <i class="fas fa-fw fa-archive"></i>
             <span>S3</span>
         </a>
