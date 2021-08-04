@@ -47,7 +47,8 @@
                             <td>{{bucket.Access}}</td>
                             <td>{{bucket.CreationDate}}</td>
                             <td class="text-center">
-                                <a href="" class="btn btn-sm btn-danger" style="margin-left: 15px;">
+                                <a href="{% url 'core:s3_bucket_delete' bucket.Name %}" class="btn btn-sm btn-danger"
+                                    style="margin-left: 15px;">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>

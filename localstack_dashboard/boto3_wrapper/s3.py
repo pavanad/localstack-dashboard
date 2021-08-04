@@ -29,3 +29,11 @@ def bucket_is_valid(bucket_name: str) -> bool:
     regex = r"(?=^.{3,63}$)(?!xn--)([a-z0-9](?:[a-z0-9-]*)[a-z0-9])$"
     matches = re.search(regex, bucket_name)
     return matches is not None
+
+
+def delete_bucket(bucket_name: str):
+    s3 = s3_resource()
+    bucket = s3.Bucket(bucket_name)
+    for key in bucket.objects.all():
+        key.delete()
+    bucket.delete()

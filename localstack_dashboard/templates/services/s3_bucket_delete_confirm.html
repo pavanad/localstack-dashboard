@@ -1,0 +1,64 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+<!-- {% load i18n %} -->
+
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Amazon S3</h1>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Delete bucket</h6>
+            </div>
+            <div class="card-body">
+                <p>
+                <ul>
+                    <li>Deleting a bucket cannot be undone.</li>
+                    <li>Bucket names are unique. If you delete a bucket, another AWS user can use the name.</li>
+                </ul>
+                </p>
+                <p>
+                    <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/delete-bucket.html"
+                        target="_blank">Learn
+                        more</a>
+                </p>
+                <form id="delete_confirm" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="id_name" class="form-label">To confirm deletion, enter the name of the
+                                bucket.</label>
+                            <input type="text" name="bucket_name" class="form-control" maxlength="100" required=""
+                                id="id_name">
+                            <small class="text-gray-400">{{bucket_name}}</small>
+                            {% if error %}
+                            <br><br>
+                            <span class="text-danger">{{error}}</span>
+                            {% endif %}
+                        </div>
+                    </div><br>
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    <a href="{% url 'core:s3' %}" class="btn btn-sm btn-secondary btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-arrow-right"></i>
+                        </span>
+                        <span class="text">Cancel</span>
+                    </a>
+                    <a href="#" onclick="$(this).closest('form').submit()"
+                        class="btn btn-sm btn-primary btn-icon-split ml-2">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-save"></i>
+                        </span>
+                        <span class="text">Delete bucket</span>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
