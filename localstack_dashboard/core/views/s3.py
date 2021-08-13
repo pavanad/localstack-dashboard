@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
@@ -11,8 +13,8 @@ from localstack_dashboard.core.mixins.localstack_service_mixin import (
 
 
 class S3View(LocalStackServiceMixin, TemplateView):
-    template_name = "services/s3.html"
     redirect_url = "/"
+    template_name = "services/s3.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -20,8 +22,15 @@ class S3View(LocalStackServiceMixin, TemplateView):
         s3 = s3_client()
         response = s3.list_buckets()
 
+        description = "Buckets are containers for data stored in S3. \
+                      <a href='https://docs.aws.amazon.com/console/s3/storage_lens' target='_blank'>Learn more</a>"
+
         context.update(
             {
+                "type": "buckets",
+                "title": "Buckets",
+                "description": description,
+                "empty_message": "<strong>No bucket</strong> - You don’t have any buckets.",
                 "bucket_list": [
                     {
                         "Name": item["Name"],
@@ -81,4 +90,33 @@ class BucketDeleteView(LocalStackServiceMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         self.bucket_name = kwargs.get("name")
         context["bucket_name"] = self.bucket_name
+        return context
+
+
+class BucketShowView(LocalStackServiceMixin, TemplateView):
+    redirect_url = "/"
+    template_name = "services/s3.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        bucket_name = kwargs.get("name")
+
+        s3 = s3_client()
+        response = s3.list_objects_v2(Bucket=bucket_name)
+
+        object_list = []
+        for item in response["Contents"]:
+            key_type = os.path.splitext(item["Key"])[1].replace(".", "")
+            item.update({"Type": key_type})
+            object_list.append(item)
+
+        context.update(
+            {
+                "type": "objects",
+                "title": "Objects",
+                "description": "Objects are the fundamental entities stored in Amazon S3.",
+                "empty_message": "<strong>No objects</strong> - You don't have any objects in this bucket.",
+                "object_list": object_list,
+            }
+        )
         return context
