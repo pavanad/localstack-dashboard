@@ -103,9 +103,10 @@ class BucketShowView(LocalStackServiceMixin, TemplateView):
 
         s3 = s3_client()
         response = s3.list_objects_v2(Bucket=bucket_name)
+        contents = response.get("Contents", [])
 
         object_list = []
-        for item in response["Contents"]:
+        for item in contents:
             key_type = os.path.splitext(item["Key"])[1].replace(".", "")
             item.update({"Type": key_type})
             object_list.append(item)

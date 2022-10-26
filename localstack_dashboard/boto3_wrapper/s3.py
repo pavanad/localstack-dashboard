@@ -5,18 +5,18 @@ import re
 import boto3
 from localstack_dashboard.config.parser import get_endpoint_url
 
-ENDPOINT = get_endpoint_url()
-
 
 def s3_resource():
-    s3 = boto3.resource("s3", endpoint_url=ENDPOINT)
+    endpoint = get_endpoint_url()
+    s3 = boto3.resource("s3", endpoint_url=endpoint)
     return s3
 
 
 def s3_client(region: str = None):
-    s3 = boto3.client("s3", endpoint_url=ENDPOINT)
+    endpoint = get_endpoint_url()    
+    s3 = boto3.client("s3", endpoint_url=endpoint)
     if region is not None:
-        s3 = boto3.client("s3", endpoint_url=ENDPOINT, region_name=region)
+        s3 = boto3.client("s3", endpoint_url=endpoint, region_name=region)
     return s3
 
 
