@@ -19,4 +19,6 @@ COPY . /app
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
+RUN python manage.py migrate
+
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
